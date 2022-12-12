@@ -140,21 +140,21 @@ class Domain_dict:
         return f"{domain_name},{mail_subdomains_str},{web_server_url},{web_server_title}"
             
 
-class Domain_dict_array:
-    __domain_dict_array = []
-
-    def __init__(self, file_name):
-        with open(file_name) as f:
-            for line in f:
-                domain_name = Bash_features.parse_domain_name(line)
-                if domain_name:
-                    x = Domain_dict(domain_name)
-                    self.__domain_dict_array.append(x)
-    
-    def __str__(self):
-        for domain_dict in self.__domain_dict_array:
-            print(domain_dict)
-        return "".join(str(domain_name_output) + "\n" for domain_name_output in self.__domain_dict_array)
+#class Domain_dict_array:
+#    __domain_dict_array = []
+#
+#    def __init__(self, file_name):
+#        with open(file_name) as f:
+#            for line in f:
+#                domain_name = Bash_features.parse_domain_name(line)
+#                if domain_name:
+#                    x = Domain_dict(domain_name)
+#                    self.__domain_dict_array.append(x)
+#    
+#    def __str__(self):
+#        for domain_dict in self.__domain_dict_array:
+#            print(domain_dict)
+#        return "".join(str(domain_name_output) + "\n" for domain_name_output in self.__domain_dict_array)
         
 
 if __name__ == "__main__":
