@@ -4,7 +4,6 @@ import aiohttp
 import html
 import time
 import sys
-import argparse
 
 flag_find_mail_addresses = False
 start = time.monotonic()
@@ -24,7 +23,7 @@ class Bash_features:
     async def execute_bash(command):
         try:
             async with sem:
-                proc = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+                proc = await asyncio.create_subprocess_shell(command, stdout=asyncio.subprocess.PIPE)
                 stdout, stderr = await proc.communicate()
                 return stdout.decode("utf-8").split('\n')
         except Exception as e:
@@ -52,7 +51,8 @@ class Bash_features:
         try:
             timeout = aiohttp.ClientTimeout(total=10)
             async with aiohttp.ClientSession(timeout=timeout) as session:
-                async with session.get(url, headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0"}, ssl=False) as response:
+                headers={"User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101 Firefox/102.0"}
+                async with session.get(url, headers=headers, ssl=False) as response:
                     response_text = await response.text()
                     response_text = html.unescape(response_text)
                     result = re.search(r"<title>(.*)<\/title>", response_text, re.DOTALL).group(1).replace('\n', ' ')
